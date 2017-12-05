@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { CustomersComponent } from './customers/customers.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { LoginComponent } from './login/login.component';
-import { NewBookingComponent } from './new-booking/new-booking.component';
+import { CustomerListComponent, CustomersComponent, DashboardComponent, LoginComponent, NewBookingComponent } from './_components';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'dashboard/customers', component: CustomersComponent },
+  { path: 'customers', component: CustomerListComponent },
+  { path: 'customers/add', component: CustomersComponent },
+  { path: 'customers/edit/:id', component: CustomersComponent },
   { path: 'newBooking', component: NewBookingComponent },
   { path: 'login', component: LoginComponent }
 ];

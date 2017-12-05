@@ -1,17 +1,19 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { NavComponent } from './nav/nav.component';
-import { LoginComponent } from './login/login.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { CustomersComponent } from './customers/customers.component';
-import { NewBookingComponent } from './new-booking/new-booking.component';
-import { BookingsComponent } from './bookings/bookings.component';
+import { BookingsComponent, CustomerListComponent,
+CustomersComponent, DashboardComponent, LoginComponent,
+NavComponent, NewBookingComponent } from './_components/index';
+
+import { OrderByPipe, SearchPipe } from './_pipes/index';
+
+import { CustomerService, BookingService } from './_services/index';
 
 @NgModule({
   declarations: [
@@ -21,15 +23,22 @@ import { BookingsComponent } from './bookings/bookings.component';
     DashboardComponent,
     CustomersComponent,
     NewBookingComponent,
-    BookingsComponent
+    BookingsComponent,
+    CustomerListComponent,
+    SearchPipe,
+    OrderByPipe
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    CustomerService,
+    BookingService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
