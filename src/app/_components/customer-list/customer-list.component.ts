@@ -1,51 +1,39 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { CustomerService } from '../../_services/index';
+import { Customer } from 'app/_models/customer';
 
 @Component({
   selector: 'app-customer-list',
   templateUrl: './customer-list.component.html'
 })
 export class CustomerListComponent implements OnInit {
-  customers: Array<any> = [];
-  errorMessage: any;
-  currentId: number = 0;
+  customers: Customer[];
+  selectedCustomer: Customer;
+  newCustomer: Customer;
 
-  serarchText: string ='';
-
-  constructor( private _customerService : CustomerService,
-               private _router: Router,
-               private _activatedRoute: ActivatedRoute) { }
+  constructor( private customerService: CustomerService, private router: Router) { }
 
   ngOnInit() {
-    if(this._activatedRoute.snapshot.params["id"])
-      this.currentId = parseInt(this._activatedRoute.snapshot.params["id"]);
-    this.getCustomers();
+    this.customerService.getCustomers().then(customers => this.customers = customers);
+    this.newCustomer = new Customer();
   }
 
-  getCustomers(){
-    this._customerService.getCustomers().subscribe(
-        data => this.customers = data,
-        error => { debugger;
-          this.errorMessage = error
-        }
-    )
+  createCustomer(customer: Customer): void {
+
+    this.customerService.createCustomer(customer)
+      .then(customer => {
+        this.customers.push(customer);
+        this.selectedCustomer = null;
+      });
   }
 
-  add(){
-    this._router.navigate(['customers/add']);
-  }
-  edit(id){
-    this._router.navigate(['customers/edit/' + id])
-  }
-  delete(id){
-    var ans = confirm("Do you want to delete customer with Id: " + id);
-    if(ans){
-      this._customerService.deleteCustomer(id)
-          .subscribe(  data=> {
-            var index = this.customers.findIndex(x=>x.id == id);
-            this.customers.splice(index, 1);
-          }, error=> this.errorMessage = error )
-    }
+  deleteCustomer(customer: Customer): void {
+    this.customerService
+      .deleteCustomer(customer)
+      .then(() => {
+        this.customers = this.customers.filter(c => c !== customer);
+        if (this.selectedCustomer === customer) { this.selectedCustomer = null; }
+      });
   }
 }

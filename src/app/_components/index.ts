@@ -1,6 +1,6 @@
 import { BookingsComponent } from './bookings/bookings.component';
 import { CustomerListComponent } from './customer-list/customer-list.component';
-import { CustomersComponent } from './customers/customers.component';
+import { CustomerInfoComponent } from './customer-info/customer-info.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { NavComponent } from './nav/nav.component';
@@ -9,7 +9,7 @@ import { NewBookingComponent } from './new-booking/new-booking.component';
 export {
   BookingsComponent,
   CustomerListComponent,
-  CustomersComponent,
+  CustomerInfoComponent,
   DashboardComponent,
   LoginComponent,
   NavComponent,
@@ -20,7 +20,7 @@ export {
 export default [
   BookingsComponent,
   CustomerListComponent,
-  CustomersComponent,
+  CustomerInfoComponent,
   DashboardComponent,
   LoginComponent,
   NavComponent,
